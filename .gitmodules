@@ -1,0 +1,3 @@
+[submodule "autogoal_repo"]
+	path = autogoal_repo
+	url = https://github.com/FabioYanezRomero/autogoal_graph_explainability.git

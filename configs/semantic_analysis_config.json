@@ -1,0 +1,93 @@
+{
+  "graph_roots": {
+    "pyg": "outputs/pyg_graphs",
+    "nx": "outputs/graphs"
+  },
+  "graphsvx": [
+    {
+      "path": "graphsvx_results_ag_news_test_skipgrams.json",
+      "dataset": "SetFit/ag_news",
+      "graph_type": "skipgrams",
+      "split": "test",
+      "backbone": "SetFit",
+      "top_k": 12
+    },
+    {
+      "path": "graphsvx_results_ag_news_test_window.json",
+      "dataset": "SetFit/ag_news",
+      "graph_type": "window",
+      "split": "test",
+      "backbone": "SetFit",
+      "top_k": 12
+    },
+    {
+      "path": "graphsvx_results_sst2_validation_skipgrams.json",
+      "dataset": "stanfordnlp/sst2",
+      "graph_type": "skipgrams",
+      "split": "validation",
+      "backbone": "stanfordnlp",
+      "top_k": 12
+    },
+    {
+      "path": "graphsvx_results_sst2_validation_window.json",
+      "dataset": "stanfordnlp/sst2",
+      "graph_type": "window",
+      "split": "validation",
+      "backbone": "stanfordnlp",
+      "top_k": 12
+    }
+  ],
+  "subgraphx": [
+    {
+      "paths": [
+        "outputs/gnn_models/SetFit/ag_news/constituency/20250917_230311/explanations/subgraphx/SetFit_ag_news_constituency_test_shard1of4/results.pkl",
+        "outputs/gnn_models/SetFit/ag_news/constituency/20250917_230311/explanations/subgraphx/SetFit_ag_news_constituency_test_shard2of4/results.pkl",
+        "outputs/gnn_models/SetFit/ag_news/constituency/20250917_230311/explanations/subgraphx/SetFit_ag_news_constituency_test_shard3of4/results.pkl",
+        "outputs/gnn_models/SetFit/ag_news/constituency/20250917_230311/explanations/subgraphx/SetFit_ag_news_constituency_test_shard4of4/results.pkl"
+      ],
+      "dataset": "SetFit/ag_news",
+      "graph_type": "constituency",
+      "split": "test",
+      "backbone": "SetFit",
+      "top_k": 12,
+      "prediction_lookup": [
+        "graphsvx_results_ag_news_test_skipgrams.json",
+        "graphsvx_results_ag_news_test_window.json"
+      ]
+    },
+    {
+      "paths": [
+        "outputs/gnn_models/SetFit/ag_news/syntactic/20250918_000115/explanations/subgraphx/SetFit_ag_news_syntactic_test/results.pkl"
+      ],
+      "dataset": "SetFit/ag_news",
+      "graph_type": "syntactic",
+      "split": "test",
+      "backbone": "SetFit",
+      "top_k": 12,
+      "prediction_lookup": [
+        "graphsvx_results_ag_news_test_skipgrams.json",
+        "graphsvx_results_ag_news_test_window.json"
+      ]
+    },
+    {
+      "paths": [
+        "outputs/gnn_models/stanfordnlp/sst2/constituency/20250918_050914/explanations/subgraphx/stanfordnlp_sst2_constituency_validation/results.pkl"
+      ],
+      "dataset": "stanfordnlp/sst2",
+      "graph_type": "constituency",
+      "split": "validation",
+      "backbone": "stanfordnlp",
+      "top_k": 12
+    },
+    {
+      "paths": [
+        "outputs/gnn_models/stanfordnlp/sst2/syntactic/20250918_075013/explanations/subgraphx/stanfordnlp_sst2_syntactic_validation/results.pkl"
+      ],
+      "dataset": "stanfordnlp/sst2",
+      "graph_type": "syntactic",
+      "split": "validation",
+      "backbone": "stanfordnlp",
+      "top_k": 12
+    }
+  ]
+}

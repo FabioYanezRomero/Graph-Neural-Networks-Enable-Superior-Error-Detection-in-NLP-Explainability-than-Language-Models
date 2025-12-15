@@ -1,0 +1,4 @@
+Defaulting to user installation because normal site-packages is not writeable
+Collecting git+https://github.com/AlexDuvalinho/GraphSVX.git
+  Cloning https://github.com/AlexDuvalinho/GraphSVX.git to /tmp/pip-req-build-9acvh7bl
+  Resolved https://github.com/AlexDuvalinho/GraphSVX.git to commit 3bacdf98037e6d6a2a3b532273021ee9f5869a14

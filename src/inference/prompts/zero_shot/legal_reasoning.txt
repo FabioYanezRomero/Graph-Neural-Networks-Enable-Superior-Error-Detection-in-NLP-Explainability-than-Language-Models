@@ -1,0 +1,10 @@
+Assume you are a judge at the Supreme Court of the United Kingdom. You have already determined the outcome of the appeal described below.
+
+Provide the legal reasoning that supports the decision label shown. Do not restate or change the decision label. Focus on the key factors from the background that justify the decision.
+
+Case title: {title}
+Decision label: {predicted_decision_label}
+Appeal background:
+{background}
+
+Reasoning:

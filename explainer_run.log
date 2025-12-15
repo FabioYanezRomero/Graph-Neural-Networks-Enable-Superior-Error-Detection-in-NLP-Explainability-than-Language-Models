@@ -1,0 +1,100 @@
+
+====================================================================
+Starting all explainability methods with fair comparison mode
+Target forward passes: 400 (default, optimized for SubgraphX)
+Test mode: Processing first 100 samples only
+To process all samples, comment out MAX_GRAPHS_FLAG in script
+====================================================================
+
+>>> Running GraphSVX on AG News and SST-2...
+
+====================================================================
+[graphsvx] python -m src.explain.gnn.graphsvx.main --dataset 'ag_news' --graph-type 'skipgrams' --backbone 'SetFit' --split 'test' --fair --max-graphs 100
+====================================================================
+/usr/lib/python3.10/runpy.py:126: RuntimeWarning: 'src.explain.gnn.graphsvx.main' found in sys.modules after import of package 'src.explain.gnn.graphsvx', but prior to execution of 'src.explain.gnn.graphsvx.main'; this may result in unpredictable behaviour
+  warn(RuntimeWarning(msg))
+
+==================================================
+Loading graph data from: /app/outputs/pyg_graphs/SetFit/ag_news/test/skipgrams
+Batch size: 1, Shuffle: False, Workers: 0
+==================================================
+Scanning files:   0%|          | 0/60 [00:00<?, ?it/s]  Found 128 graphs in 00000.pt
+Scanning files:   2%|▏         | 1/60 [00:00<00:06,  9.77it/s]  Found 128 graphs in 00001.pt
+  Found 128 graphs in 00002.pt
+  Found 128 graphs in 00003.pt
+  Found 128 graphs in 00004.pt
+  Found 128 graphs in 00005.pt
+Scanning files:  10%|█         | 6/60 [00:00<00:01, 31.83it/s]  Found 128 graphs in 00006.pt
+  Found 128 graphs in 00007.pt
+  Found 128 graphs in 00008.pt
+  Found 128 graphs in 00009.pt
+Scanning files:  17%|█▋        | 10/60 [00:00<00:01, 32.88it/s]  Found 128 graphs in 00010.pt
+  Found 128 graphs in 00011.pt
+  Found 128 graphs in 00012.pt
+  Found 128 graphs in 00013.pt
+Scanning files:  23%|██▎       | 14/60 [00:00<00:01, 25.70it/s]  Found 128 graphs in 00014.pt
+  Found 128 graphs in 00015.pt
+  Found 128 graphs in 00016.pt
+Scanning files:  28%|██▊       | 17/60 [00:00<00:01, 23.03it/s]  Found 128 graphs in 00017.pt
+  Found 128 graphs in 00018.pt
+  Found 128 graphs in 00019.pt
+  Found 128 graphs in 00020.pt
+Scanning files:  35%|███▌      | 21/60 [00:00<00:01, 21.75it/s]  Found 128 graphs in 00021.pt
+  Found 128 graphs in 00022.pt
+  Found 128 graphs in 00023.pt
+  Found 128 graphs in 00024.pt
+  Found 128 graphs in 00025.pt
+Scanning files:  43%|████▎     | 26/60 [00:01<00:01, 27.31it/s]  Found 128 graphs in 00026.pt
+  Found 128 graphs in 00027.pt
+  Found 128 graphs in 00028.pt
+  Found 128 graphs in 00029.pt
+Scanning files:  50%|█████     | 30/60 [00:01<00:00, 30.28it/s]  Found 128 graphs in 00030.pt
+  Found 128 graphs in 00031.pt
+  Found 128 graphs in 00032.pt
+  Found 128 graphs in 00033.pt
+Scanning files:  57%|█████▋    | 34/60 [00:01<00:01, 22.81it/s]  Found 128 graphs in 00034.pt
+  Found 128 graphs in 00035.pt
+  Found 128 graphs in 00036.pt
+  Found 128 graphs in 00037.pt
+  Found 128 graphs in 00038.pt
+Scanning files:  65%|██████▌   | 39/60 [00:01<00:00, 28.06it/s]  Found 128 graphs in 00039.pt
+  Found 128 graphs in 00040.pt
+  Found 128 graphs in 00041.pt
+  Found 128 graphs in 00042.pt
+Scanning files:  72%|███████▏  | 43/60 [00:01<00:00, 25.94it/s]  Found 128 graphs in 00043.pt
+  Found 128 graphs in 00044.pt
+  Found 128 graphs in 00045.pt
+  Found 128 graphs in 00046.pt
+  Found 128 graphs in 00047.pt
+  Found 128 graphs in 00048.pt
+  Found 128 graphs in 00049.pt
+Scanning files:  83%|████████▎ | 50/60 [00:01<00:00, 34.34it/s]  Found 128 graphs in 00050.pt
+  Found 128 graphs in 00051.pt
+  Found 128 graphs in 00052.pt
+  Found 128 graphs in 00053.pt
+Scanning files:  90%|█████████ | 54/60 [00:01<00:00, 33.15it/s]  Found 128 graphs in 00054.pt
+  Found 128 graphs in 00055.pt
+  Found 128 graphs in 00056.pt
+  Found 128 graphs in 00057.pt
+Scanning files:  97%|█████████▋| 58/60 [00:02<00:00, 32.17it/s]  Found 128 graphs in 00058.pt
+  Found 48 graphs in 00059.pt
+Detected 4 unique labels: [0, 1, 2, 3]
+Total graphs indexed: 7600
+Scanning files: 100%|██████████| 60/60 [00:02<00:00, 28.26it/s]
+SimpleGraphDataset initialized with 7600 graphs, 768 node features, 4 classes
+
+Dataset loaded successfully with 7600 graphs
+Number of node features: 768
+Number of classes: 4
+
+First batch info:
+  Type: <class 'abc.DataBatch'>
+  Number of graphs: 1
+  Batch tensor: tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0])
+  Node features shape: torch.Size([28, 768])
+  Edge indices shape: torch.Size([2, 53])
+  Labels shape: torch.Size([1])
+GraphSVX[1/1]:   0%|          | 0/100 [00:00<?, ?it/s][codecarbon INFO @ 20:25:15] offline tracker init
+[codecarbon WARNING @ 20:25:15] Multiple instances of codecarbon are allowed to run at the same time.
+

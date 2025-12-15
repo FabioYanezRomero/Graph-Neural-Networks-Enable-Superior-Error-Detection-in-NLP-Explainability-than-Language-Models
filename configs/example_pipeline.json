@@ -1,0 +1,63 @@
+{
+  "finetune": {
+    "dataset_name": "stanfordnlp/sst2",
+    "model_name": "google-bert/bert-base-uncased",
+    "num_epochs": 1,
+    "batch_size": 16,
+    "learning_rate": 1e-6,
+    "weight_decay": 1e-4,
+    "max_length": 128,
+    "fp16": true,
+    "lr_scheduler": "linear",
+    "warmup_steps": 0,
+    "warmup_proportion": 0.1,
+    "output_dir": "./outputs/llm",
+    "seed": 42
+  },
+  "build": {
+    "graph_type": "syntactic",
+    "dataset": "stanfordnlp/sst2",
+    "subsets": ["train", "validation"],
+    "batch_size": 256,
+    "device": "cuda:0",
+    "output_dir": "./outputs/graphs"
+  },
+  "embed": {
+    "graph_type": "syntactic",
+    "dataset_name": "stanfordnlp/sst2",
+    "split": "validation",
+    "tree_dir": "./outputs/graphs/stanfordnlp/sst2/validation/syntactic",
+    "output_dir": "./outputs/embeddings/stanfordnlp/sst2/validation/syntactic",
+    "model_name": "bert-base-uncased",
+    "device": "cuda",
+    "batch_size": 128
+  },
+  "convert": {
+    "label_source": "llm",
+    "use_pred": true,
+    "hf_dataset_name": "stanfordnlp/sst2",
+    "graph_type": "syntactic"
+  },
+  "train": {
+    "train_data_dir": "./outputs/pyg_graphs/stanfordnlp/sst2/syntactic/train",
+    "val_data_dir": "./outputs/pyg_graphs/stanfordnlp/sst2/syntactic/validation",
+    "module": "TransformerConv",
+    "hidden_dim": 128,
+    "num_layers": 2,
+    "heads": 4,
+    "dropout": 0.5,
+    "pooling": "mean",
+    "epochs": 5,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "optimizer": "Adam",
+    "scheduler": "ReduceLROnPlateau",
+    "patience": 5,
+    "num_workers": 4,
+    "cache_size": 0
+  },
+  "explain": {
+    "method": "subgraphx"
+  }
+}

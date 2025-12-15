@@ -1,0 +1,17 @@
+Assume you are a judge at the Supreme Court of the United Kingdom. You have already determined the outcome of the appeal described below.
+
+Provide the legal reasoning that supports the decision label shown. Do not restate or change the decision label. Focus on the key factors from the background that justify the decision.
+
+Example case background:
+The appellant sought to overturn a fine for breaching import regulations. The lower courts found that the regulations were proportionate and that the appellant had clear notice of the requirements.
+Example decision label: dismiss
+Example reasoning: The appeal fails because the regulations pursued a legitimate aim, were proportionate to that aim, and the appellant had adequate notice of the obligations and penalties.
+
+Now explain the reasoning for the current case.
+
+Case title: {title}
+Decision label: {predicted_decision_label}
+Appeal background:
+{background}
+
+Reasoning:

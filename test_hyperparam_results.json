@@ -1,0 +1,65 @@
+[
+  {
+    "num_tokens": 2,
+    "hyperparams": {
+      "sampling_ratio": 0.8,
+      "num_samples_override": 32,
+      "top_k_nodes": 2
+    },
+    "max_combinations": 4
+  },
+  {
+    "num_tokens": 4,
+    "hyperparams": {
+      "sampling_ratio": 0.7200000000000001,
+      "num_samples_override": 32,
+      "top_k_nodes": 3
+    },
+    "max_combinations": 16
+  },
+  {
+    "num_tokens": 6,
+    "hyperparams": {
+      "sampling_ratio": 0.6,
+      "num_samples_override": 64,
+      "top_k_nodes": 4
+    },
+    "max_combinations": 64
+  },
+  {
+    "num_tokens": 8,
+    "hyperparams": {
+      "sampling_ratio": 0.5,
+      "num_samples_override": 256,
+      "top_k_nodes": 5
+    },
+    "max_combinations": 256
+  },
+  {
+    "num_tokens": 12,
+    "hyperparams": {
+      "sampling_ratio": 0.09000000000000001,
+      "num_samples_override": 691,
+      "top_k_nodes": 6
+    },
+    "max_combinations": 4096
+  },
+  {
+    "num_tokens": 16,
+    "hyperparams": {
+      "sampling_ratio": 0.01,
+      "num_samples_override": 1280,
+      "top_k_nodes": 7
+    },
+    "max_combinations": 65536
+  },
+  {
+    "num_tokens": 20,
+    "hyperparams": {
+      "sampling_ratio": 0.001,
+      "num_samples_override": 1536,
+      "top_k_nodes": 6
+    },
+    "max_combinations": 1048576
+  }
+]

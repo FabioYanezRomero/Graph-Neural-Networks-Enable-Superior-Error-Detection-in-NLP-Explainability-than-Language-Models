@@ -1,0 +1,15 @@
+Assume you are a judge at the Supreme Court of the United Kingdom. You are given a summary of an appeal heard by the Court. Your task in this step is only to decide the outcome of the appeal.
+
+Classify whether the appeal should be allowed or dismissed. Reply with exactly one lowercase token: either allow or dismiss. Do not include any explanation or additional text.
+
+Example case background:
+The appellant sought to overturn a fine for breaching import regulations. The lower courts found that the regulations were proportionate and that the appellant had clear notice of the requirements.
+Example decision label: dismiss
+
+Now decide the current case.
+
+Case title: {title}
+Appeal background:
+{background}
+
+Decision label:

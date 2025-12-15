@@ -1,0 +1,31 @@
+# Core dependencies
+# Note: PyTorch and PyTorch Geometric are installed separately in the Dockerfile
+
+# Machine learning and data processing
+transformers
+bitsandbytes
+datasets
+networkx
+pandas
+numpy
+scipy
+matplotlib
+seaborn
+scikit-learn
+tqdm
+
+# NLP parsers (required for syntactic/constituency builders)
+stanza
+
+# Additional utilities
+pyyaml
+joblib
+ipywidgets
+jupyter
+codecarbon
+
+# Development and testing
+pytest
+black
+flake8
+mypy

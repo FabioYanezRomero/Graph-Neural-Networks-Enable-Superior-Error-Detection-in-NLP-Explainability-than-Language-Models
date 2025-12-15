@@ -1,0 +1,51 @@
+{
+  "method": "graphsvx",
+  "dataset": "SetFit/ag_news",
+  "graph_type": "skipgrams",
+  "split": "test",
+  "backbone": "SetFit",
+  "num_shards": 1,
+  "shard_index": 0,
+  "base_defaults": {
+    "sampling_ratio": 0.1,
+    "num_samples_override": 512,
+    "keep_special_tokens": true,
+    "top_k_nodes": 10
+  },
+  "locked_overrides": {},
+  "per_graph": [
+    {
+      "graph_index": 0,
+      "num_nodes": 28,
+      "num_edges": 53,
+      "hyperparams": {
+        "sampling_ratio": 0.378,
+        "num_samples_override": 164,
+        "keep_special_tokens": true,
+        "top_k_nodes": 9
+      }
+    },
+    {
+      "graph_index": 1,
+      "num_nodes": 57,
+      "num_edges": 111,
+      "hyperparams": {
+        "sampling_ratio": 0.252,
+        "num_samples_override": 273,
+        "keep_special_tokens": true,
+        "top_k_nodes": 15
+      }
+    },
+    {
+      "graph_index": 2,
+      "num_nodes": 50,
+      "num_edges": 97,
+      "hyperparams": {
+        "sampling_ratio": 0.252,
+        "num_samples_override": 246,
+        "keep_special_tokens": true,
+        "top_k_nodes": 13
+      }
+    }
+  ]
+}

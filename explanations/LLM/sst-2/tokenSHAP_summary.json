@@ -1,0 +1,122 @@
+{
+  "sentence_1": {
+    "prompt": "it 's a charming and often affecting journey . ",
+    "num_tokens": 10,
+    "max_combinations": 1024,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 0.3213372230529785,
+    "dataset_index": 0,
+    "result_shape": [
+      102,
+      4
+    ]
+  },
+  "sentence_2": {
+    "prompt": "unflinchingly bleak and desperate ",
+    "num_tokens": 8,
+    "max_combinations": 256,
+    "sampling_ratio": 0.5,
+    "elapsed_time": 0.2806403636932373,
+    "dataset_index": 1,
+    "result_shape": [
+      127,
+      4
+    ]
+  },
+  "sentence_3": {
+    "prompt": "it 's slow -- very , very slow . ",
+    "num_tokens": 11,
+    "max_combinations": 2048,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 0.43871593475341797,
+    "dataset_index": 4,
+    "result_shape": [
+      204,
+      4
+    ]
+  },
+  "sentence_4": {
+    "prompt": "or doing last year 's taxes with your ex-wife . ",
+    "num_tokens": 13,
+    "max_combinations": 8192,
+    "sampling_ratio": 0.01,
+    "elapsed_time": 0.18238186836242676,
+    "dataset_index": 7,
+    "result_shape": [
+      81,
+      4
+    ]
+  },
+  "sentence_5": {
+    "prompt": "the mesmerizing performances of the leads keep the film grounded and keep the audience riveted . ",
+    "num_tokens": 21,
+    "max_combinations": 2097152,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 4.597188234329224,
+    "dataset_index": 10,
+    "result_shape": [
+      2097,
+      4
+    ]
+  },
+  "sentence_6": {
+    "prompt": "the emotions are raw and will strike a nerve with anyone who 's ever had family trauma . ",
+    "num_tokens": 19,
+    "max_combinations": 524288,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 1.1999459266662598,
+    "dataset_index": 16,
+    "result_shape": [
+      524,
+      4
+    ]
+  },
+  "sentence_7": {
+    "prompt": "... the movie is just a plain old monster . ",
+    "num_tokens": 12,
+    "max_combinations": 4096,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 0.962428092956543,
+    "dataset_index": 18,
+    "result_shape": [
+      409,
+      4
+    ]
+  },
+  "sentence_8": {
+    "prompt": "in its best moments , resembles a bad high school production of grease , without benefit of song . ",
+    "num_tokens": 19,
+    "max_combinations": 524288,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 1.1933298110961914,
+    "dataset_index": 19,
+    "result_shape": [
+      524,
+      4
+    ]
+  },
+  "sentence_9": {
+    "prompt": "the iditarod lasts for days - this just felt like it did . ",
+    "num_tokens": 15,
+    "max_combinations": 32768,
+    "sampling_ratio": 0.01,
+    "elapsed_time": 0.7929317951202393,
+    "dataset_index": 21,
+    "result_shape": [
+      327,
+      4
+    ]
+  },
+  "sentence_10": {
+    "prompt": "holden caulfield did it better . ",
+    "num_tokens": 8,
+    "max_combinations": 256,
+    "sampling_ratio": 0.5,
+    "elapsed_time": 0.2876472473144531,
+    "dataset_index": 22,
+    "result_shape": [
+      127,
+      4
+    ]
+  }
+}

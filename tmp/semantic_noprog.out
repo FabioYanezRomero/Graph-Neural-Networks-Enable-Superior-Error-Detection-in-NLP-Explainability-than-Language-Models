@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/cli_pipeline.py", line 26, in <module>
+    raise SystemExit(main())
+  File "/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/cli_pipeline.py", line 21, in main
+    pipeline.run_tokens()
+  File "/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/pipeline.py", line 32, in run_tokens
+    summaries, aggregate = analyse_subgraphx(entry, self.loader, self.cfg.stopwords)
+  File "/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/tokens.py", line 205, in analyse_subgraphx
+    results = load_subgraphx_results(path)
+  File "/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/data_loader.py", line 144, in load_subgraphx_results
+    payload = pickle.load(handle)
+AttributeError: Can't get attribute 'SubgraphXResult' on <module 'src.Analytics.semantic.cli_pipeline' from '/home/fabio/Documents/GitHub/From-Text-to-Graph-Leveraging-Graph-Neural-Networks-for-Enhanced-Explainability-in-NLP/src/Analytics/semantic/cli_pipeline.py'>

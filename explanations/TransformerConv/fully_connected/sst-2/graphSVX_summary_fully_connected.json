@@ -1,0 +1,152 @@
+{
+  "graph_1": {
+    "num_nodes": 12,
+    "num_edges": 144,
+    "max_combinations": 1024,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 318.40934586524963,
+    "dataset_index": 0,
+    "label": 1,
+    "prediction_class": 1,
+    "prediction_confidence": 0.9989408850669861,
+    "result_shape": [
+      102,
+      6
+    ]
+  },
+  "graph_2": {
+    "num_nodes": 10,
+    "num_edges": 100,
+    "max_combinations": 256,
+    "sampling_ratio": 0.5,
+    "elapsed_time": 307.99283146858215,
+    "dataset_index": 1,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.8106110692024231,
+    "result_shape": [
+      127,
+      6
+    ]
+  },
+  "graph_3": {
+    "num_nodes": 13,
+    "num_edges": 169,
+    "max_combinations": 2048,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 722.1064093112946,
+    "dataset_index": 4,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.9903359413146973,
+    "result_shape": [
+      204,
+      6
+    ]
+  },
+  "graph_4": {
+    "num_nodes": 15,
+    "num_edges": 225,
+    "max_combinations": 8192,
+    "sampling_ratio": 0.01,
+    "elapsed_time": 334.1980357170105,
+    "dataset_index": 7,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.9796676635742188,
+    "result_shape": [
+      81,
+      6
+    ]
+  },
+  "graph_5": {
+    "num_nodes": 23,
+    "num_edges": 529,
+    "max_combinations": 2097152,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 13837.900879144669,
+    "dataset_index": 10,
+    "label": 1,
+    "prediction_class": 1,
+    "prediction_confidence": 0.9984248876571655,
+    "result_shape": [
+      2097,
+      6
+    ]
+  },
+  "graph_6": {
+    "num_nodes": 21,
+    "num_edges": 441,
+    "max_combinations": 524288,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 3206.8899426460266,
+    "dataset_index": 16,
+    "label": 1,
+    "prediction_class": 1,
+    "prediction_confidence": 0.9957396984100342,
+    "result_shape": [
+      524,
+      6
+    ]
+  },
+  "graph_7": {
+    "num_nodes": 14,
+    "num_edges": 196,
+    "max_combinations": 4096,
+    "sampling_ratio": 0.1,
+    "elapsed_time": 1460.600917816162,
+    "dataset_index": 18,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.9969502091407776,
+    "result_shape": [
+      409,
+      6
+    ]
+  },
+  "graph_8": {
+    "num_nodes": 21,
+    "num_edges": 441,
+    "max_combinations": 524288,
+    "sampling_ratio": 0.001,
+    "elapsed_time": 3125.898506641388,
+    "dataset_index": 19,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.9952549934387207,
+    "result_shape": [
+      524,
+      6
+    ]
+  },
+  "graph_9": {
+    "num_nodes": 17,
+    "num_edges": 289,
+    "max_combinations": 32768,
+    "sampling_ratio": 0.01,
+    "elapsed_time": 1418.197493314743,
+    "dataset_index": 21,
+    "label": 0,
+    "prediction_class": 0,
+    "prediction_confidence": 0.7083196043968201,
+    "result_shape": [
+      327,
+      6
+    ]
+  },
+  "graph_10": {
+    "num_nodes": 10,
+    "num_edges": 100,
+    "max_combinations": 256,
+    "sampling_ratio": 0.5,
+    "elapsed_time": 263.19790172576904,
+    "dataset_index": 22,
+    "label": 0,
+    "prediction_class": 1,
+    "prediction_confidence": 0.8177459239959717,
+    "result_shape": [
+      127,
+      6
+    ]
+  }
+}

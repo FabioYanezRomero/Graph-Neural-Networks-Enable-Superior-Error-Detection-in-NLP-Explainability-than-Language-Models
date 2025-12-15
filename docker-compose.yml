@@ -1,0 +1,200 @@
+# Using Docker Compose V2 syntax (no version field needed)
+
+services:
+  # Main application service
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    gpus: all
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      # Mount the main application code
+      - type: bind
+        source: .
+        target: /app
+      # Share host data directory with container
+      - type: bind
+        source: ./data
+        target: /app/data
+    working_dir: /app/src
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    networks:
+      - app-network
+    restart: unless-stopped
+    ipc: host
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # GraphSVX explainability service
+  graphsvx:
+    build:
+      context: .
+      dockerfile: docker/graphsvx.Dockerfile
+    container_name: graphsvx
+    gpus: all
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - type: bind
+        source: ./data
+        target: /app/data
+    working_dir: /graphsvx
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    networks:
+      - app-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - SYS_ADMIN
+
+  # SHAP explainability service
+  shap:
+    build:
+      context: .
+      dockerfile: docker/shap.Dockerfile
+    container_name: shap
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - type: bind
+        source: ./data
+        target: /app/data
+    working_dir: /shap
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    networks:
+      - app-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+
+  # TokenSHAP (token-level SHAP) explainability service
+  tokenshap:
+    build:
+      context: .
+      dockerfile: docker/tokenshap.Dockerfile
+    container_name: tokenshap
+    gpus: all
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - SYS_ADMIN
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - type: bind
+        source: ./data
+        target: /app/data
+    working_dir: /tokenshap
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    networks:
+      - app-network
+    restart: unless-stopped
+    ipc: host
+
+  # SubgraphX explainability service (DIG-based)
+  subgraphx:
+    build:
+      context: .
+      dockerfile: docker/subgraphx.Dockerfile
+    container_name: subgraphx
+    gpus: all
+    security_opt:
+      - seccomp=unconfined
+    cap_add:
+      - SYS_ADMIN
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - type: bind
+        source: ./data
+        target: /app/data
+    working_dir: /app/src/explain/subgraphx
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    networks:
+      - app-network
+    restart: unless-stopped
+    ipc: host
+
+networks:
+  app-network:
+    name: text-to-graph-network
+    driver: bridge
+    driver_opts:
+      encrypted: ''
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
