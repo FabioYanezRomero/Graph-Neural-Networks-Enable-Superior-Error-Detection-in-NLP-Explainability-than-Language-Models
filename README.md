@@ -56,6 +56,16 @@ The evaluation framework (Section 3.5) provides a comprehensive assessment of ex
 
 **Key Insight**: GNN explainers produce AUC distributions where the optimal threshold achieves near-perfect separation between correct and incorrect predictions. LLM explainers show overlapping distributions with lower discrimination.
 
+<p align="center">
+  <img src="Images/AUC Discriminative Capacity/ag-news_connected_scatter_insertion.png" alt="AUC Insertion AG News" width="80%">
+</p>
+<p align="center"><em>Insertion AUC distribution (AG News)</em></p>
+
+<p align="center">
+  <img src="Images/AUC Discriminative Capacity/sst-2_connected_scatter_insertion.png" alt="AUC Insertion SST-2" width="80%">
+</p>
+<p align="center"><em>Insertion AUC distribution (SST-2)</em></p>
+
 ### Dimension 2: Feature Ranking Stability (Progression)
 
 **Purpose**: Evaluates how importance is distributed across features by measuring confidence changes as top-k features are progressively masked or revealed.
@@ -69,6 +79,11 @@ The evaluation framework (Section 3.5) provides a comprehensive assessment of ex
 - Higher sufficiency retention (top-k features alone capture prediction)
 
 This reveals that GNN explanations identify more **focused, meaningful feature sets** compared to LLM explainers.
+
+<p align="center">
+  <img src="Images/Feature Ranking Stability/top_k_concentration.png" alt="Feature Ranking Stability AG News" width="80%">
+</p>
+<p align="center"><em>Top-k concentration analysis (AG News & SST-2)</em></p>
 
 ### Dimension 3: Consistency Across Outcomes
 
@@ -87,6 +102,16 @@ Separability = √(SD_correct² + SD_incorrect²)
 ```
 
 **Key Insight**: GNN explainers achieve **higher separability scores**, meaning correct and incorrect predictions cluster in distinct regions of the margin space.
+
+<p align="center">
+  <img src="Images/Consistency Across Outcomes/Ag-news.png" alt="Consistency AG News" width="80%">
+</p>
+<p align="center"><em>Consistency quadrant analysis (AG News)</em></p>
+
+<p align="center">
+  <img src="Images/Consistency Across Outcomes/SST-2.png" alt="Consistency SST-2" width="80%">
+</p>
+<p align="center"><em>Consistency quadrant analysis (SST-2)</em></p>
 
 ### Dimension 4: Behavioral Faithfulness (Fidelity)
 
@@ -110,6 +135,16 @@ Separability = √(SD_correct² + SD_incorrect²)
 ```
 
 **Key Insight**: GNN explainers consistently place correct predictions in Q1 (ideal) and incorrect predictions in Q3/Q4. This **high separability** enables near-perfect error detection.
+
+<p align="center">
+  <img src="Images/Fidelity/Ag_news.png" alt="Fidelity AG News" width="80%">
+</p>
+<p align="center"><em>Fidelity quadrant analysis showing M⁺ vs M⁻ distribution (AG News)</em></p>
+
+<p align="center">
+  <img src="Images/Fidelity/SST-2.png" alt="Fidelity SST-2" width="80%">
+</p>
+<p align="center"><em>Fidelity quadrant analysis showing M⁺ vs M⁻ distribution (SST-2)</em></p>
 
 ---
 
