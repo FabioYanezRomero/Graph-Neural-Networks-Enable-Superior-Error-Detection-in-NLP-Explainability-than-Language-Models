@@ -152,6 +152,11 @@ graphsvx-test:
 subgraphx-shell:
 	${DOCKER_COMPOSE} exec subgraphx bash
 
+# TokenSHAP
+## Open a shell in the TokenSHAP container
+tokenshap-shell:
+	${DOCKER_COMPOSE} exec tokenshap bash
+
 # Utility
 ## Format code with Black
 format:
@@ -168,6 +173,59 @@ typecheck:
 	@echo "${GREEN}🔍 Running type checking...${RESET}"
 	docker compose exec app mypy .
 
+# =============================================================================
+# Paper Reproduction Pipeline
+# =============================================================================
+# Run complete paper methodology (Sections 3.1-3.6)
+
+## Run full paper reproduction pipeline
+reproduce:
+	@echo "${GREEN}🚀 Running Full Paper Reproduction Pipeline${RESET}"
+	@echo "Step 1/6: Fine-tuning LLM (Section 3.2)..."
+	${DOCKER_COMPOSE} exec app bash scripts/01_finetune_llm.sh
+	@echo "Step 2/6: Building graphs (Section 3.1)..."
+	${DOCKER_COMPOSE} exec app bash scripts/02_build_graphs.sh
+	@echo "Step 3/6: Generating embeddings (Section 3.2)..."
+	${DOCKER_COMPOSE} exec app bash scripts/03_generate_embeddings.sh
+	@echo "Step 4/6: Training GNNs (Section 3.3)..."
+	${DOCKER_COMPOSE} exec app bash scripts/04_train_gnns.sh
+	@echo "Step 5/6: Running explainability (Section 3.4)..."
+	bash scripts/05_run_explainers.sh
+	@echo "Step 6/6: Running analytics (Section 3.5-3.6)..."
+	${DOCKER_COMPOSE} exec app bash scripts/06_run_analytics.sh
+	@echo "${GREEN}✅ Pipeline complete!${RESET}"
+
+## Step 1: Fine-tune LLM
+step-1-finetune:
+	@echo "${GREEN}Step 1: Fine-tuning LLM...${RESET}"
+	${DOCKER_COMPOSE} exec app bash scripts/01_finetune_llm.sh
+
+## Step 2: Build graphs
+step-2-graphs:
+	@echo "${GREEN}Step 2: Building graphs...${RESET}"
+	${DOCKER_COMPOSE} exec app bash scripts/02_build_graphs.sh
+
+## Step 3: Generate embeddings
+step-3-embeddings:
+	@echo "${GREEN}Step 3: Generating embeddings...${RESET}"
+	${DOCKER_COMPOSE} exec app bash scripts/03_generate_embeddings.sh
+
+## Step 4: Train GNNs
+step-4-train:
+	@echo "${GREEN}Step 4: Training GNNs...${RESET}"
+	${DOCKER_COMPOSE} exec app bash scripts/04_train_gnns.sh
+
+## Step 5: Run explainability
+step-5-explain:
+	@echo "${GREEN}Step 5: Running explainability...${RESET}"
+	bash scripts/05_run_explainers.sh
+
+## Step 6: Run analytics
+step-6-analytics:
+	@echo "${GREEN}Step 6: Running analytics...${RESET}"
+	${DOCKER_COMPOSE} exec app bash scripts/06_run_analytics.sh
+
 # Handle arguments with spaces
 %:
 	@:
+
