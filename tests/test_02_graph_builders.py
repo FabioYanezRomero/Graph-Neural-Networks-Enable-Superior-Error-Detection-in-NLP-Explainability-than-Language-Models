@@ -89,6 +89,20 @@ class TestBaseGenerator:
         assert BaseTreeGenerator is not None
 
 
+class TestWindowGenerator:
+    """Test window graph generator."""
+    
+    def test_word_window_generator_exists(self):
+        """Test WordWindowGenerator class exists."""
+        from src.graph_builders.window import WordWindowGenerator
+        assert WordWindowGenerator is not None
+    
+    def test_token_window_generator_exists(self):
+        """Test TokenWindowGenerator class exists."""
+        from src.graph_builders.window import TokenWindowGenerator
+        assert TokenWindowGenerator is not None
+
+
 @pytest.mark.slow
 @pytest.mark.integration
 class TestGraphGeneration:
@@ -103,17 +117,3 @@ class TestGraphGeneration:
         """Test syntactic (dependency) tree generation."""
         # Would require stanza model download
         pass
-    
-    def test_window_generation(self, sample_sentences):
-        """Test window graph generation."""
-        from src.graph_builders.window import WindowGraphGenerator
-        generator = WindowGraphGenerator(window_size=3)
-        # graph = generator.generate(sample_sentences[0])
-        # assert isinstance(graph, nx.Graph)
-    
-    def test_skipgrams_generation(self, sample_sentences):
-        """Test skip-gram graph generation."""
-        from src.graph_builders.skipgrams import SkipgramGraphGenerator
-        generator = SkipgramGraphGenerator(window_size=2, skip_size=1)
-        # graph = generator.generate(sample_sentences[0])
-        # assert isinstance(graph, nx.Graph)

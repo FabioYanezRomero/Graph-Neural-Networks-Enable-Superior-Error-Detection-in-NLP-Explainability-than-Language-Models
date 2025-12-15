@@ -14,51 +14,46 @@ class TestFinetuningImports:
         from src import finetuning
         assert finetuning is not None
     
-    def test_finetuner_import(self):
-        """Test Finetuner class import."""
-        from src.finetuning.finetuner import Finetuner
-        assert Finetuner is not None
+    def test_finetuner_module_import(self):
+        """Test finetuner module imports."""
+        from src.finetuning import finetuner
+        assert finetuner is not None
 
 
 class TestFinetunerConfig:
     """Test finetuning configuration."""
     
-    def test_config_import(self):
-        """Test config module exists."""
-        from src.finetuning import config
-        assert config is not None
+    def test_default_config_exists(self):
+        """Test DEFAULT_CONFIG exists."""
+        from src.finetuning.finetuner import DEFAULT_CONFIG
+        assert DEFAULT_CONFIG is not None
+        assert isinstance(DEFAULT_CONFIG, dict)
     
     def test_default_model_name(self):
         """Test default model is BERT."""
-        from src.finetuning.config import DEFAULT_MODEL_NAME
-        assert "bert" in DEFAULT_MODEL_NAME.lower()
+        from src.finetuning.finetuner import DEFAULT_CONFIG
+        assert "bert" in DEFAULT_CONFIG['model_name'].lower()
 
 
-class TestFinetunerClass:
-    """Test Finetuner class functionality."""
+class TestFineTuneFunction:
+    """Test fine_tune function."""
     
-    def test_finetuner_instantiation(self):
-        """Test Finetuner can be instantiated."""
-        from src.finetuning.finetuner import Finetuner
-        # Should be able to create with minimal config
-        finetuner = Finetuner(
-            dataset_name="stanfordnlp/sst2",
-            model_name="google-bert/bert-base-uncased",
-            output_dir="/tmp/test_finetuning"
-        )
-        assert finetuner is not None
-        assert finetuner.dataset_name == "stanfordnlp/sst2"
+    def test_fine_tune_function_exists(self):
+        """Test fine_tune function can be imported."""
+        from src.finetuning.finetuner import fine_tune
+        assert callable(fine_tune)
     
-    @pytest.mark.slow
-    @pytest.mark.integration
+    def test_parse_args_exists(self):
+        """Test parse_args function exists."""
+        from src.finetuning.finetuner import parse_args
+        assert callable(parse_args)
+
+
+@pytest.mark.slow
+@pytest.mark.integration
+class TestFullFinetuning:
+    """Integration tests for full fine-tuning."""
+    
     def test_load_dataset(self):
         """Test dataset loading (requires network)."""
-        from src.finetuning.finetuner import Finetuner
-        finetuner = Finetuner(
-            dataset_name="stanfordnlp/sst2",
-            model_name="google-bert/bert-base-uncased",
-            output_dir="/tmp/test_finetuning"
-        )
-        # This would load actual data - mark as slow/integration
-        # dataset = finetuner.load_dataset()
-        # assert dataset is not None
+        pass

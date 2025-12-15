@@ -19,6 +19,11 @@ class TestEmbeddingsImports:
         """Test generate module imports."""
         from src.embeddings import generate
         assert generate is not None
+    
+    def test_dicts_import(self):
+        """Test dicts module imports."""
+        from src.embeddings import dicts
+        assert dicts is not None
 
 
 class TestEmbeddingFormat:
@@ -34,15 +39,6 @@ class TestEmbeddingFormat:
         for idx, emb in mock_node_embeddings.items():
             assert isinstance(emb, torch.Tensor)
             assert emb.shape[0] == 768
-
-
-class TestEmbeddingDictionary:
-    """Test embedding dictionary utilities."""
-    
-    def test_dicts_module_import(self):
-        """Test dicts module imports."""
-        from src.embeddings.dicts import EmbeddingDict
-        assert EmbeddingDict is not None
 
 
 @pytest.mark.slow

@@ -18,8 +18,15 @@ class TestConvertImports:
     
     def test_nx_to_pyg_import(self):
         """Test converter function imports."""
-        from src.convert.nx_to_pyg import convert_nx_to_pyg
-        assert convert_nx_to_pyg is not None
+        from src.convert.nx_to_pyg import nx_to_pyg
+        assert nx_to_pyg is not None
+        assert callable(nx_to_pyg)
+    
+    def test_nx_list_to_pyg_import(self):
+        """Test list converter function imports."""
+        from src.convert.nx_to_pyg import nx_list_to_pyg
+        assert nx_list_to_pyg is not None
+        assert callable(nx_list_to_pyg)
 
 
 class TestPyGDataFormat:
@@ -53,17 +60,19 @@ class TestConversion:
     
     def test_simple_graph_conversion(self, sample_networkx_graph, mock_node_embeddings):
         """Test converting simple graph to PyG format."""
-        from src.convert.nx_to_pyg import convert_nx_to_pyg
+        from src.convert.nx_to_pyg import nx_to_pyg
+        import numpy as np
         
         # Add embeddings to graph nodes
         G = sample_networkx_graph.copy()
         for node in G.nodes():
             if node in mock_node_embeddings:
-                G.nodes[node]['embedding'] = mock_node_embeddings[node]
+                G.nodes[node]['embedding'] = mock_node_embeddings[node].numpy()
         
         # Conversion should work
-        # pyg_data = convert_nx_to_pyg(G, label=1)
-        # assert pyg_data is not None
+        pyg_data = nx_to_pyg(G)
+        assert pyg_data is not None
+        assert hasattr(pyg_data, 'x')
     
     def test_edge_index_valid(self, sample_pyg_data):
         """Test edge index contains valid node indices."""
@@ -77,10 +86,18 @@ class TestConversion:
 class TestBatchConversion:
     """Test batch conversion functionality."""
     
-    def test_batch_convert_import(self):
-        """Test batch converter imports."""
-        from src.convert.batch_convert import batch_convert_graphs
-        assert batch_convert_graphs is not None
+    def test_nx_list_to_pyg(self, sample_networkx_graph):
+        """Test list conversion function."""
+        from src.convert.nx_to_pyg import nx_list_to_pyg
+        import numpy as np
+        
+        # Add dummy embeddings
+        G = sample_networkx_graph.copy()
+        for node in G.nodes():
+            G.nodes[node]['embedding'] = np.random.randn(32)
+        
+        result = nx_list_to_pyg([G, G])
+        assert len(result) == 2
     
     def test_pyg_batch_size(self, sample_pyg_batch):
         """Test batched graphs have correct count."""

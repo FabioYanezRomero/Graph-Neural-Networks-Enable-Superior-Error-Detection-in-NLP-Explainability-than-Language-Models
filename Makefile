@@ -15,47 +15,40 @@ RESET  := $(shell tput -Txterm sgr0)
 # Help text
 TARGET_MAX_CHAR_NUM=20
 
-## Show help
-display_help:
-	@echo ''
-	${YELLOW}Text-to-Graph Project${RESET}
-	----------------------
-	${GREEN}Build:${RESET}
-	  ${YELLOW}make build${RESET}		Build all services
-	  ${YELLOW}make build-<service>${RESET}	Build a specific service
-
-	${GREEN}Development:${RESET}
-	  ${YELLOW}make up${RESET}			Build (if needed) and start all services
-	  ${YELLOW}make start${RESET}		Start existing containers without building
-	  ${YELLOW}make rebuild${RESET}		Force rebuild and restart all services
-	  ${YELLOW}make down${RESET}		Stop and remove all containers
-	  ${YELLOW}make logs${RESET}		View logs from all services
-	  ${YELLOW}make logs <service>${RESET}	View logs from a specific service
-
-	${GREEN}Testing:${RESET}
-	  ${YELLOW}make test${RESET}		Run tests
-	  ${YELLOW}make test-file f=path/to/test.py${RESET}  Run a specific test file
-
-	${GREEN}Maintenance:${RESET}
-	  ${YELLOW}make clean${RESET}		Remove all containers and volumes
-	  ${YELLOW}make prune${RESET}		Remove unused Docker resources
-	  ${YELLOW}make requirements${RESET}	Update requirements.txt
-
-	${GREEN}AutoGOAL:${RESET}
-	  ${YELLOW}make autogoal-shell${RESET}	Open a shell in the AutoGOAL container
-	  ${YELLOW}make autogoal-test${RESET}	Run AutoGOAL tests
-
-	${GREEN}Utility:${RESET}
-	  ${YELLOW}make format${RESET}		Format code with Black
-	  ${YELLOW}make lint${RESET}		Run linters
-	  ${YELLOW}make typecheck${RESET}	Run type checking
-
 .PHONY: help
-display_help help:
-	@awk '\
-	/^### /{gsub(/### /, "");print "\n"$$1"\n"} \
-	/^## /{gsub(/## /, "");print "\n"$$1":\n"} \
-	/^[\t ].*## /{gsub(/^[\t ]*[^:]*:[\t ]*## /, "");print "  "$$0}' $(MAKEFILE_LIST)
+help:
+	@echo ''
+	@echo '${YELLOW}GNN Explainability Project${RESET}'
+	@echo '=========================='
+	@echo ''
+	@echo '${GREEN}Docker Build:${RESET}'
+	@echo '  ${YELLOW}make build${RESET}            Build all services'
+	@echo '  ${YELLOW}make build-<service>${RESET}  Build a specific service (app, subgraphx, graphsvx, tokenshap)'
+	@echo '  ${YELLOW}make build-no-cache${RESET}   Rebuild without cache'
+	@echo ''
+	@echo '${GREEN}Docker Control:${RESET}'
+	@echo '  ${YELLOW}make up${RESET}               Start all services'
+	@echo '  ${YELLOW}make down${RESET}             Stop all services'
+	@echo '  ${YELLOW}make logs${RESET}             View logs'
+	@echo '  ${YELLOW}make clean${RESET}            Remove containers and volumes'
+	@echo ''
+	@echo '${GREEN}Pipeline Reproduction:${RESET}'
+	@echo '  ${YELLOW}make reproduce${RESET}        Run full paper pipeline (Steps 1-6)'
+	@echo '  ${YELLOW}make step-1-finetune${RESET}  Fine-tune LLM'
+	@echo '  ${YELLOW}make step-2-graphs${RESET}    Build graphs'
+	@echo '  ${YELLOW}make step-3-embeddings${RESET} Generate embeddings'
+	@echo '  ${YELLOW}make step-4-train${RESET}     Train GNNs'
+	@echo '  ${YELLOW}make step-5-explain${RESET}   Run explainability'
+	@echo '  ${YELLOW}make step-6-analytics${RESET} Run analytics'
+	@echo ''
+	@echo '${GREEN}Container Shells:${RESET}'
+	@echo '  ${YELLOW}make subgraphx-shell${RESET}  Open SubgraphX shell'
+	@echo '  ${YELLOW}make graphsvx-shell${RESET}   Open GraphSVX shell'
+	@echo '  ${YELLOW}make tokenshap-shell${RESET}  Open TokenSHAP shell'
+	@echo ''
+	@echo '${GREEN}Testing:${RESET}'
+	@echo '  ${YELLOW}make test${RESET}             Run all tests'
+	@echo ''
 
 # Build
 ## Build all services
