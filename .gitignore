@@ -1,24 +1,33 @@
-# Byte-compiled / optimized / DLL files
+# =============================================================================
+# Git Ignore File - GNN Explainability Repository
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# Virtual environments
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
+# -----------------------------------------------------------------------------
+# Testing & Coverage
+# -----------------------------------------------------------------------------
+.pytest_cache/
 htmlcov/
 .tox/
 .nox/
@@ -31,31 +40,50 @@ coverage.xml
 *.py,cover
 .hypothesis/
 
-# Jupyter Notebook
-.ipynb_checkpoints
+# -----------------------------------------------------------------------------
+# IDE / Editor
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+*.sublime-*
+launch.json
+settings.json
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+
+# -----------------------------------------------------------------------------
+# Type Checking
+# -----------------------------------------------------------------------------
+.mypy_cache/
+.dmypy.json
+.dmypy.json.5
+.pyre/
+cython_debug/
 
 # pyenv
 .python-version
 
-# mypy
-.mypy_cache/
-.dmypy.json
-.dmypy.json.5
-
-# Pyre type checker
-.pyre/
-
-# Cython debug symbols
-cython_debug/
-
-# Environments
+# -----------------------------------------------------------------------------
+# Environment Variables
+# -----------------------------------------------------------------------------
 .env
 .env.*
+!.env.example
+scripts/models.env
 
-# Data
-*.pkl
-*.tsv
+# -----------------------------------------------------------------------------
+# Outputs & Data (generated during experiments)
+# -----------------------------------------------------------------------------
+outputs/
 data/
+
+# Legacy directories (no longer used)
 utils/
 visualizations/
 processed_data/
@@ -67,22 +95,26 @@ explainability_results/
 GraphXAI/
 labels/
 Code/
-data
-models
-outputs/
 
-# Large temporary artifacts
-tmp_bigfile
-core.*
-
-# Prevent root directory clutter
+# -----------------------------------------------------------------------------
+# Prevent Root Directory Clutter
+# -----------------------------------------------------------------------------
 *.log
 *_pid.txt
+
+# Large JSON result files
 graphsvx_results*.json
 subgraphx_results*.json
 *_hparams*.json
+test_hyperparam_results.json
 
-# IDE configurations
-.vscode/
-launch.json
-settings.json
+# Temporary files
+tmp/
+temp/
+*.tmp
+tmp_bigfile
+core.*
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
