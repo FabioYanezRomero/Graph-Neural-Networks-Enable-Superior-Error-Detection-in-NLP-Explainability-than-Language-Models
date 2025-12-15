@@ -182,14 +182,27 @@ y = 0 if prediction is CORRECT
 
 ### Results
 
-| Explainer | Dataset | Accuracy | AUC-ROC |
-|-----------|---------|----------|---------|
-| SubgraphX (constituency) | SST-2 | 100.0% | 1.000 |
-| GraphSVX (skipgrams) | SST-2 | 99.7% | 0.998 |
-| TokenSHAP | SST-2 | 88.1% | 0.912 |
-| SubgraphX (syntactic) | AG News | 100.0% | 1.000 |
-| GraphSVX (window) | AG News | 99.8% | 0.999 |
-| TokenSHAP | AG News | 89.6% | 0.923 |
+Classification accuracy for error detection via stratified logistic regression (10-fold CV + 200 bootstrap resamples):
+
+**GNN Methods (SubgraphX/GraphSVX)**:
+| Dataset | Graph Type | CV Accuracy | Bootstrap Accuracy |
+|---------|------------|-------------|-------------------|
+| AG News | Constituency | 99.9% ± 0.2 | **100.0%** ± 0.0 |
+| AG News | Syntactic | 99.7% ± 0.4 | 99.8% ± 0.2 |
+| AG News | Skipgrams | 93.6% ± 4.2 | 94.2% ± 3.7 |
+| AG News | Window | 92.5% ± 4.9 | 93.1% ± 4.2 |
+| SST-2 | Constituency | **100.0%** ± 0.0 | **100.0%** ± 0.0 |
+| SST-2 | Syntactic | 99.9% ± 0.5 | 99.9% ± 0.1 |
+| SST-2 | Skipgrams | 88.6% ± 6.5 | 90.0% ± 1.7 |
+| SST-2 | Window | 86.5% ± 5.7 | 88.2% ± 3.2 |
+
+**LLM Method (TokenSHAP)**:
+| Dataset | CV Accuracy | Bootstrap Accuracy |
+|---------|-------------|-------------------|
+| AG News | 88.1% ± 5.3 | 88.7% ± 4.5 |
+| SST-2 | 89.6% ± 4.3 | 91.4% ± 2.1 |
+
+**Key Observation**: Hierarchical graphs (constituency, syntactic) achieve 99.7–100.0% accuracy, substantially outperforming TokenSHAP (88.1–89.6%). This 10–13 percentage point gap confirms that structured graph representations expose model decision boundaries with greater transparency.
 
 ### Coefficient Analysis
 
