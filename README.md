@@ -1,96 +1,132 @@
-GraphText: Modular NLP→Graph→GNN Pipeline
-=========================================
+# Graph Neural Networks Enable Superior Error Detection in NLP Explainability than Language Models
 
-This repo orchestrates a full workflow to build graphs from text, attach LLM embeddings, convert to PyTorch Geometric (PyG), train GNNs, and run explainability. It wraps the current implementation under `src/Clean_Code` with a small, extensible package and CLI for easier scaling and future additions.
+Official code repository for the paper *"Graph Neural Networks Enable Superior Error Detection in NLP Explainability than Language Models"*.
 
-What’s New
-----------
-- `src/graphtext`: a thin, modular layer with registries and a unified CLI
-- Intuitive module paths under `src/` (shims): `src/finetuning`, `src/graph_builders`, `src/embeddings`, `src/convert`, `src/gnn_training`, `src/explain`
-- Composable subcommands: finetune → build-graphs → embed → to-pyg → train → explain
-- Config-driven pipeline runner for end-to-end experiments
-- Clear extension points to add new graph-generation and explainability methods
-- Consolidated outputs under `outputs/`
-- Metadata index at `outputs/metadata/index.json`
+## Overview
 
-Package Layout (new)
---------------------
-- `src/graphtext/registry.py`: Simple registries for plug-ins
-- `src/graphtext/graphs/`: Graph builders (wrapping existing generators)
-- `src/graphtext/embeddings/`: LLM fine-tuning and graph embedding wrappers
-- `src/graphtext/convert/`: NetworkX→PyG conversion wrapper
-- `src/graphtext/training/`: GNN trainer wrapper
-- `src/graphtext/explain/`: Explainers wrapper
-- `src/graphtext/cli.py`: Unified CLI
-- `src/graphtext/pipeline.py`: Programmatic pipeline runner
-Shims to legacy code under intuitive paths:
-- `src/finetuning` → `src/Clean_Code/Model_Finetuning`
-- `src/graph_builders` → `src/Clean_Code/Tree_Generation`
-- `src/embeddings` → `src/Clean_Code/Graph_Embeddings`
-- `src/convert` → `src/Clean_Code/NetworkX_to_PyG`
-- `src/gnn_training` → `src/Clean_Code/GNN_training`
-- `src/explain/subgraphx` → `src/Clean_Code/Optimization`
+This repository implements a modular pipeline for comparing explainability signatures between discrete graph-based (GNN) and continuous token-based (LLM) architectures for error detection in NLP text classification.
 
-Quick Start
------------
-Run commands from the project root. Use the `src`-package style:
+**Key Finding**: GNN-based explainers achieve 99.7–100.0% error detection accuracy compared to 88.1–89.6% for LLM-based explainers.
 
-- Fine-tune an LLM
-  - `python -m src.graphtext.cli finetune --dataset_name stanfordnlp/sst2 --output_dir outputs/llm`
+## Paper-to-Code Mapping
 
-- Build graphs (syntactic or constituency)
-  - `python -m src.graphtext.cli build-graphs --graph_type syntactic --dataset stanfordnlp/sst2 --output_dir outputs/graphs`
+| Paper Section | Description | Code Location |
+|---------------|-------------|---------------|
+| 3.1 Text-to-Graph Conversion | Constituency, Dependency, Window, Skip-gram graphs | `src/graph_builders/` |
+| 3.2 LLM Fine-tuning & Embeddings | BERT fine-tuning and node embedding extraction | `src/finetuning/`, `src/embeddings/` |
+| 3.3 GNN Training | GCN-based surrogates trained via LLM-as-teacher | `src/gnn_training/` |
+| 3.4 Post-hoc Explainability | SubgraphX, GraphSVX (GNN), TokenSHAP (LLM) | `src/explain/gnn/`, `src/explain/llm/` |
+| 3.5 4-Dimension Evaluation | AUC, Fidelity, Consistency, Progression | `src/Analytics/` |
+| 3.6 Logistic Regression | Error signal analysis | `src/use_case/`, `src/Insights/` |
 
-- Embed nodes using an LLM
-  - `python -m src.graphtext.cli embed --graph_type syntactic --dataset_name stanfordnlp/sst2 --split validation --tree_dir <trees_dir> --output_dir <emb_out>`
-
-- Convert to PyG with labels
-  - `python -m src.graphtext.cli to-pyg --label_source llm --hf_dataset_name stanfordnlp/sst2 --graph_type syntactic`
-
-- Train a GNN
-  - `python -m src.graphtext.cli train --train_data_dir <pyg_train_dir> --val_data_dir <pyg_val_dir>`
-
-- Explain a trained GNN (auto-selects SubgraphX for hierarchical graphs)
-  - `python -m src.graphtext.cli explain --dataset stanfordnlp/sst2 --graph_type syntactic --split validation --method auto`
-  - `python -m src.graphtext.cli explain --dataset ag_news --graph_type skipgrams --backbone SetFit --split test --method auto`
-  - Append `--performance_profile fast` to trade a small accuracy drop for significantly faster SubgraphX/GraphSVX sweeps, or `quality` to favour fidelity.
-  - Use `--num_jobs 4` (for example) to shard the dataset across four parallel explain processes; each shard writes its own summary under the run directory.
-  - Summaries land under each run directory, e.g. `outputs/gnn_models/<backbone>/<dataset>/<graph_type>/<run>/explanations/<method>/<backbone>_<dataset>_<graph_type>_<split>/summary.json`
-
-Pipeline via JSON
------------------
-See `configs/example_pipeline.json` for a complete end-to-end config. Run:
-
-- `python -m src.graphtext.cli run --config configs/example_pipeline.json`
-
-Extending Graph Generation
---------------------------
-Add a new builder by registering it:
+## Repository Structure
 
 ```
-from src.graphtext.registry import GRAPH_BUILDERS
-from src.graphtext.graphs.base import BaseGraphBuilder, BuildArgs
-
-@GRAPH_BUILDERS.register("my_builder")
-class MyBuilder(BaseGraphBuilder):
-    def process_dataset(self, args: BuildArgs) -> None:
-        # produce and save graphs under args.output_dir
-        ...
+src/
+├── finetuning/          # LLM fine-tuning (BERT)
+├── embeddings/          # Node embedding extraction
+├── graph_builders/      # Text-to-graph conversion
+│   ├── constituency.py  # Constituency trees
+│   ├── syntactic.py     # Dependency trees
+│   ├── skipgrams.py     # Skip-gram graphs
+│   └── window.py        # Window-based graphs
+├── convert/             # NetworkX → PyTorch Geometric
+├── gnn_training/        # GNN training pipeline
+├── explain/             # Explainability modules
+│   ├── gnn/
+│   │   ├── subgraphx/   # For tree-structured graphs
+│   │   └── graphsvx/    # For non-hierarchical graphs
+│   └── llm/
+│       └── tokenshap/   # LLM baseline (TokenSHAP)
+├── Analytics/           # 4-Dimension Evaluation Framework
+│   ├── auc/             # Dimension 1: AUC Discriminative Capacity
+│   ├── fidelity/        # Dimension 2: Behavioral Faithfulness
+│   ├── consistency/     # Dimension 3: Consistency Across Outcomes
+│   └── progression/     # Dimension 4: Feature Ranking Stability
+├── Insights/            # Metrics extraction and integration
+└── use_case/            # Logistic regression error analysis
 ```
 
-Notes
------
-- The new layer calls existing scripts/modules under `src/Clean_Code` via shims for now; the codebase will be fully migrated and `src/Clean_Code` removed after outputs are archived.
-- Some legacy modules use non-relative imports; the wrappers execute them as modules (`python -m ...`) to ensure imports resolve.
-- Default outputs are consolidated under `outputs/`. You can override with `GRAPHTEXT_OUTPUT_DIR`.
-- A metadata index is appended after each step at `outputs/metadata/index.json`.
+## Quick Start
 
-Docker Compose Services
------------------------
-- `app`: Main CUDA-enabled development environment for training and evaluation.
-- `graphsvx`: Standalone GraphSVX explainer image cloned from the upstream project.
-- `shap`: Lightweight SHAP explainability workspace.
-- `tokenshap`: Token-level SHAP container with Hugging Face tooling and GPU support.
-- `subgraphx`: DIG-powered SubgraphX explainer image sharing the `/app` volume for direct access to trained GNNs and graphs.
+### 1. Fine-tune LLM
+```bash
+python -m src.graphtext.cli finetune --dataset_name stanfordnlp/sst2 --output_dir outputs/llm
+```
 
-Start any explainer container individually, for example `docker compose up -d subgraphx`, then open an interactive shell with `make subgraphx-shell` to run `python -m src.explain.gnn.subgraphx.main` (or `...graphsvx.main`) or custom scripts.
+### 2. Build Graphs
+```bash
+# Syntactic (dependency) trees
+python -m src.graphtext.cli build-graphs --graph_type syntactic --dataset stanfordnlp/sst2 --output_dir outputs/graphs
+
+# Other graph types: constituency, skipgrams, window
+```
+
+### 3. Generate Embeddings
+```bash
+python -m src.graphtext.cli embed --graph_type syntactic --dataset_name stanfordnlp/sst2 --split validation --output_dir outputs/embeddings
+```
+
+### 4. Convert to PyG Format
+```bash
+python -m src.graphtext.cli to-pyg --label_source llm --hf_dataset_name stanfordnlp/sst2 --graph_type syntactic
+```
+
+### 5. Train GNN
+```bash
+python -m src.graphtext.cli train --train_data_dir <pyg_train_dir> --val_data_dir <pyg_val_dir>
+```
+
+### 6. Run Explainability
+```bash
+# Auto-selects SubgraphX for tree graphs, GraphSVX for non-tree graphs
+python -m src.graphtext.cli explain --dataset stanfordnlp/sst2 --graph_type syntactic --split validation --method auto
+```
+
+## Datasets
+
+- **AG News**: 4-class topic classification (Zhang et al., 2015)
+- **SST-2**: Binary sentiment analysis (Socher et al., 2013)
+
+## Explainability Methods
+
+| Method | Architecture | Graph Types | Paper Section |
+|--------|-------------|-------------|---------------|
+| SubgraphX | GNN | Constituency, Syntactic (trees) | 3.4.1 |
+| GraphSVX | GNN | Window, Skip-gram (non-trees) | 3.4.1 |
+| TokenSHAP | LLM | Tokens | 3.4.1 |
+
+## 4-Dimension Evaluation Framework
+
+The evaluation framework (Section 3.5) assesses explainability across four dimensions:
+
+1. **AUC Discriminative Capacity**: Measures Insertion/Deletion AUC separation between correct and incorrect predictions
+2. **Behavioral Faithfulness**: Quantifies necessity (M⁻) and sufficiency (M⁺) through fidelity metrics
+3. **Consistency Across Outcomes**: Evaluates margin preservation under perturbation
+4. **Feature Ranking Stability**: Analyzes importance concentration in top-k features
+
+## Docker Services
+
+- `app`: Main CUDA-enabled development environment
+- `subgraphx`: SubgraphX explainer container
+- `graphsvx`: GraphSVX explainer container
+- `tokenshap`: TokenSHAP explainer container
+
+```bash
+docker compose up -d subgraphx
+make subgraphx-shell
+```
+
+## Citation
+
+```bibtex
+@article{yanez2025gnn,
+  title={Graph Neural Networks Enable Superior Error Detection in NLP Explainability than Language Models},
+  author={Yáñez-Romero, Fabio and Montoya, Andrés and Suárez, Armando and Gutiérrez, Yoan and Mitkov, Ruslan},
+  year={2025}
+}
+```
+
+## License
+
+See [LICENSE](LICENSE) for details.

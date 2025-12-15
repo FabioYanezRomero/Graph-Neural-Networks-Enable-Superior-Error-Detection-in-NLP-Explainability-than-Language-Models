@@ -69,11 +69,20 @@ labels/
 Code/
 data
 models
-/src/Clean_Code/output/
-/output_lazy
-/src/Clean_Code/LazyTrainer/output_lazy
 outputs/
 
 # Large temporary artifacts
 tmp_bigfile
 core.*
+
+# Prevent root directory clutter
+*.log
+*_pid.txt
+graphsvx_results*.json
+subgraphx_results*.json
+*_hparams*.json
+
+# IDE configurations
+.vscode/
+launch.json
+settings.json
